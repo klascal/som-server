@@ -1,10 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./db");
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
 const { CLIENT_ID, SCOPE, TOKEN_URL } = process.env;
