@@ -62,8 +62,6 @@ app.post("/", async (req, res) => {
 });
 
 const puppeteer = require("puppeteer");
-const path = require("path");
-process.env.PUPPETEER_CACHE_DIR = path.resolve(__dirname, ".puppeteer-cache");
 
 app.post("/sso", async (req, res) => {
   const { org, username, password } = req.body;
@@ -76,6 +74,7 @@ app.post("/sso", async (req, res) => {
 
   try {
     const browser = await puppeteer.launch({
+      executablePath: puppeteer.executablePath(),
       headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
