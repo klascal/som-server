@@ -9,20 +9,18 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const { CLIENT_ID, SCOPE, TOKEN_URL } = process.env;
-
 async function fetchNewTokens(refreshToken) {
   const params = new URLSearchParams();
   params.append("grant_type", "refresh_token");
   params.append("refresh_token", refreshToken);
-  params.append("client_id", CLIENT_ID);
-  params.append("scope", SCOPE);
+  params.append("client_id", "somtoday-leerling-web");
+  params.append("scope", "openid");
 
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
   };
 
-  const response = await axios.post(TOKEN_URL, params.toString(), { headers });
+  const response = await axios.post("https://inloggen.somtoday.nl/oauth2/token", params.toString(), { headers });
   return response.data;
 }
 
