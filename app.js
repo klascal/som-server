@@ -62,6 +62,8 @@ app.post("/", async (req, res) => {
 });
 
 const puppeteer = require("puppeteer");
+const path = require("path");
+process.env.PUPPETEER_CACHE_DIR = path.resolve(__dirname, ".puppeteer-cache");
 
 app.post("/sso", async (req, res) => {
   const { org, username, password } = req.body;
