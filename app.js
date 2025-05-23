@@ -55,8 +55,10 @@ app.post("/", async (req, res) => {
       const tokenData = await fetchNewTokens(oldToken);
       db.saveUser(oldToken, tokenData.refresh_token, tokenData.access_token);
       return res.json({ access_token: tokenData.access_token });
-    } catch {
-      return res.status(400).json({ error: "Invalid refresh_token" });
+    } catch (e) {
+      return res
+        .status(400)
+        .json({ error: "Invalid refresh_token. Error:" + e });
     }
   }
 
