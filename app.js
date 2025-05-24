@@ -59,8 +59,13 @@ app.post("/", async (req, res) => {
         .json({ error: "Invalid refresh_token. Error:" + e });
     }
   }
-
-  return res.json({ access_token: user.access_token });
+const tokenData = await fetchNewTokens(user.new_refresh_token);
+  db.saveUser(
+    user.old_refresh_token,
+    tokenData.refresh_token,
+    tokenData.access_token
+  );
+  return res.json({ access_token: tokenData.access_token });
 });
 
 const PORT = process.env.PORT || 10000;
