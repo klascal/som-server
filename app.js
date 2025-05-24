@@ -38,11 +38,11 @@ app.post("/", async (req, res) => {
           tokenData.refresh_token,
           tokenData.access_token
         );
-        return res.json({ data: tokenData });
       } catch {
         // silently ignore failure
       }
     }
+    return res.status(204).send(); // No Content
   }
 
   const oldToken = authHeader.trim();
